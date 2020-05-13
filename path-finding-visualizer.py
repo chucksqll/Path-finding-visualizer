@@ -1,27 +1,27 @@
-import tkinter as tk
 import sys, pygame
-import numpy as np
 import math
-from time import time
+
 pygame.init()
+
 BLACK=(0, 0, 0)
 BLACKSHADOW=(100,100,100)
 SHADOW = (192, 192, 192)
-WHITE = (255, 255, 255)
 LIGHTGREEN = (0, 255, 0)
 GREEN = (0, 200, 0)
 LIGHTBLUE= (0, 0, 255) 
-RED=(255,0,0)
+
 GOLD=(255,215,0)
+
 start_color=LIGHTBLUE
 walls_color=BLACK
 dest_color=LIGHTBLUE
 path_color=GOLD
 visited_node_color=GREEN
-unvisited_node_color=BLACKSHADOW
 frame_color=BLACKSHADOW
+node_color=SHADOW
+
 class Node:
-    def __init__(self,x,y,color=SHADOW,prev_x=None,prev_y=None,is_visited=False):
+    def __init__(self,x,y,color=node_color,prev_x=None,prev_y=None,is_visited=False):
         self.x=x
         self.y=y
         self.previous_x=prev_x
@@ -38,7 +38,6 @@ class Node:
 class Map:
     def __init__(self,width,height,side_size):
         self.side_size=side_size
-        # self.rows=int(width/side_size)
         self.rows=self.columns=int(height/side_size)
         self.grid=[]
         self.start=None
@@ -158,17 +157,13 @@ mapa.set_end(27,29)
 class Button:
     def __init__(self,x_pos,y_pos,width,height,text,color,font_size,font_color):
         self.rect=pygame.Rect(x_pos,y_pos,width,height)
-        self.width=width
-        self.height=height
-        self.x_pos=x_pos
-        self.y_pos=y_pos
         self.font=pygame.font.SysFont('Arial', font_size)
         self.text=text
         self.color =color
         self.font_color=font_color
     def draw(self):
         pygame.draw.rect(screen,self.color,self.rect)
-        screen.blit(self.font.render(self.text, True, self.font_color), (self.x_pos, self.y_pos))
+        screen.blit(self.font.render(self.text, True, self.font_color), (self.rect.left, self.rect.top))
 
 # button to run/restart 
 start_button =Button(500,400,120,40,"  START",LIGHTBLUE,30,LIGHTGREEN)
